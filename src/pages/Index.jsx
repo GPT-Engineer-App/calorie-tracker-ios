@@ -35,8 +35,8 @@ const Index = () => {
   };
 
   return (
-    <Flex direction="column" align="center" justify="center" h="100vh">
-      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="whiteAlpha.900">
+    <Flex direction="column" align="center" justify="center" h="100vh" bg="dark.900">
+      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="dark.800">
         <Heading size="lg">Caloria Tracker</Heading>
         <Text>{date}</Text>
         <FormControl display="flex" alignItems="center">
