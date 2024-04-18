@@ -62,7 +62,7 @@ const Index = () => {
         <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
           Save
         </Button>
-        <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost" onClick={() => navigate("/history")}>
+        <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost" onClick={() => navigate("/history", { state: { history } })}>
           View History
         </Button>
       </VStack>

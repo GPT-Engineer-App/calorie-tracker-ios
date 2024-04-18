@@ -1,6 +1,10 @@
 import { Box, Heading, List, ListItem, VStack } from "@chakra-ui/react";
 
-const History = ({ history }) => {
+import { useLocation } from "react-router-dom";
+
+const History = () => {
+  const { state } = useLocation();
+  const history = state?.history || [];
   return (
     <VStack spacing={4} align="center" justify="center" h="100vh" bg="dark.900">
       <Heading size="lg" color="white">
