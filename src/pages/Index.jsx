@@ -36,7 +36,7 @@ const Index = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" h="100vh">
-      <VStack spacing={8} w="full" maxW="md" p={10} boxShadow="2xl" m={10}>
+      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="lg" m={12} bg="whiteAlpha.900">
         <Heading size="lg">Caloria Tracker</Heading>
         <Text>{`Today's Date: ${date}`}</Text>
         <FormControl display="flex" alignItems="center">
