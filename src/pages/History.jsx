@@ -1,13 +1,17 @@
-import { Box, Heading, List, ListItem, VStack } from "@chakra-ui/react";
+import { Box, Heading, List, ListItem, VStack, Button } from "@chakra-ui/react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { useLocation } from "react-router-dom";
+
 
 const History = () => {
   const { state } = useLocation();
   const history = state?.history || [];
   return (
     <VStack spacing={4} align="center" justify="center" h="100vh" bg="dark.900">
-      <Heading size="lg" color="white">
+      <Button colorScheme="red" onClick={() => navigate("/")}>
+        Back to Main
+      </Button>
+      <Heading size="lg" color="white" mt={4}>
         Calorie History
       </Heading>
       <List spacing={3}>
