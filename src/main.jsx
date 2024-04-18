@@ -6,8 +6,8 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 const colors = {
   brand: {
     900: "#ff4500",
-    800: "#e63e00",
-    700: "#cc3700",
+    800: "#f26a42",
+    700: "#e63e00",
   },
   dark: {
     50: "#f7fafc",
@@ -27,7 +27,7 @@ const theme = extendTheme({
   colors,
   config: {
     initialColorMode: "dark",
-    useSystemColorMode: false,
+    useSystemColorMode: true,
   },
 });
 
