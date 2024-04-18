@@ -5,6 +5,7 @@ import { FaSave, FaHistory } from "react-icons/fa";
 
 const Index = () => {
   const [date, setDate] = useState(new Date().toLocaleDateString());
+  const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem("calorieHistory")) || []);
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
   const [accumulatedCalories, setAccumulatedCalories] = useState(0);
@@ -22,7 +23,11 @@ const Index = () => {
       return;
     }
 
-    const newAccumulatedCalories = caloriesUsed ? accumulatedCalories : accumulatedCalories + 150;
+    const newAccumulatedCalories = accumulatedCalories + 150;
+    const newHistory = [...history, { date, details, calories: newAccumulatedCalories }];
+    if (newHistory.length > 10) newHistory.shift();
+    setHistory(newHistory);
+    localStorage.setItem("calorieHistory", JSON.stringify(newHistory));
     setAccumulatedCalories(newAccumulatedCalories > 1500 ? 1500 : newAccumulatedCalories);
 
     toast({
@@ -55,7 +60,7 @@ const Index = () => {
         <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
           Save
         </Button>
-        <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost">
+        <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost" onClick={() => navigate("/history")}>
           View History
         </Button>
       </VStack>

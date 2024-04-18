@@ -6,6 +6,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Index />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </Router>
   );
