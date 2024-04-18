@@ -1,5 +1,5 @@
 // Caloria - A simple calorie tracking web application
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Switch, Text, VStack, useToast } from "@chakra-ui/react";
 import { FaSave, FaHistory } from "react-icons/fa";

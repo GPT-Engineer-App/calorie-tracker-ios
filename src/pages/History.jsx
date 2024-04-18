@@ -1,5 +1,6 @@
 import { Box, Heading, List, ListItem, VStack, Button } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 const navigate = useNavigate();
 
 const History = () => {
