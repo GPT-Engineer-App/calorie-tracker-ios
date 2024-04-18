@@ -5,9 +5,9 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const colors = {
   brand: {
-    900: "#c2410c",
-    800: "#a2360a",
-    700: "#812c08",
+    900: "#ff4500",
+    800: "#e63e00",
+    700: "#cc3700",
   },
   dark: {
     50: "#f7fafc",
@@ -23,7 +23,13 @@ const colors = {
   },
 };
 
-const theme = extendTheme({ colors });
+const theme = extendTheme({
+  colors,
+  config: {
+    initialColorMode: "dark",
+    useSystemColorMode: false,
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

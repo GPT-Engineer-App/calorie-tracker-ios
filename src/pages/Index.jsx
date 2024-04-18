@@ -52,10 +52,10 @@ const Index = () => {
           </FormControl>
         )}
         {!caloriesUsed && <Text>{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
-        <Button leftIcon={<FaSave />} colorScheme="blue" onClick={handleSave}>
+        <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
           Save
         </Button>
-        <Button leftIcon={<FaHistory />} variant="ghost">
+        <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost">
           View History
         </Button>
       </VStack>
