@@ -36,9 +36,9 @@ const Index = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" h="100vh">
-      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="lg" m={12} bg="whiteAlpha.900">
+      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="whiteAlpha.900">
         <Heading size="lg">Caloria Tracker</Heading>
-        <Text>{`Today's Date: ${date}`}</Text>
+        <Text>{date}</Text>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="calorie-status" mb="0">
             Calories Used Today:
@@ -51,7 +51,7 @@ const Index = () => {
             <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="What were the calories spent on?" />
           </FormControl>
         )}
-        {!caloriesUsed && <Text>{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
+        {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
         <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
           Save
         </Button>
