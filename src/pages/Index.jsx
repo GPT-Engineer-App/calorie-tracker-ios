@@ -6,7 +6,14 @@ import { FaSave, FaHistory } from "react-icons/fa";
 
 const Index = () => {
   const [date, setDate] = useState(new Date().toLocaleDateString());
-  const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem("calorieHistory")) || []);
+  const [history, setHistory] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("calorieHistory")) || [];
+    } catch (error) {
+      console.error("Error reading from localStorage", error);
+      return [];
+    }
+  });
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
   const [accumulatedCalories, setAccumulatedCalories] = useState(0);
