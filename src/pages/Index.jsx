@@ -19,17 +19,12 @@ const Index = () => {
   const [dailyBalance, setDailyBalance] = useState(150);
   const [accumulatedCalories, setAccumulatedCalories] = useState(() => {
     const today = new Date().toLocaleDateString();
-    const lastEntryDate = history.length > 0 ? history[history.length - 1].date : null;
-    if (today !== lastEntryDate) {
-      return 150;
-    } else {
-      return history.reduce((acc, entry) => {
-        if (entry.date === today) {
-          return acc + entry.calories;
-        }
-        return acc;
-      }, 150);
-    }
+    return history.reduce((acc, entry) => {
+      if (entry.date === today) {
+        return acc - entry.calories;
+      }
+      return acc;
+    }, 150);
   });
   const toast = useToast();
   const navigate = useNavigate();
