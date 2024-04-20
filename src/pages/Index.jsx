@@ -17,7 +17,12 @@ const Index = () => {
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
   const [dailyBalance, setDailyBalance] = useState(150);
-  const [accumulatedCalories, setAccumulatedCalories] = useState(0);
+  const [accumulatedCalories, setAccumulatedCalories] = useState(() => {
+    const lastEntry = history.length > 0 ? history[history.length - 1] : null;
+    const lastDate = lastEntry ? lastEntry.date : "";
+    const today = new Date().toLocaleDateString();
+    return lastDate === today ? parseInt(localStorage.getItem("accumulatedCalories"), 10) : 150;
+  });
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -44,7 +49,7 @@ const Index = () => {
       });
       return;
     }
-    const newAccumulatedCalories = accumulatedCalories + (dailyBalance - calorieIntake);
+    const newAccumulatedCalories = accumulatedCalories - calorieIntake;
     const newHistory = [...history, { date, details, calories: calorieIntake }];
     if (newHistory.length > 10) newHistory.shift();
     setHistory(newHistory);
