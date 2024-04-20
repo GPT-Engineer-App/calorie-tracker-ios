@@ -62,6 +62,7 @@ const Index = () => {
     } else {
       setAccumulatedCalories(newAccumulatedCalories);
     }
+    setCaloriesUsed(false);
 
     toast({
       title: "Entry Saved",
