@@ -21,7 +21,7 @@ const Index = () => {
     const today = new Date().toLocaleDateString();
     return history.reduce((acc, entry) => {
       if (entry.date === today) {
-        return acc - entry.calories;
+        return acc + entry.calories;
       }
       return acc;
     }, 150);
