@@ -29,6 +29,9 @@ const theme = extendTheme({
     initialColorMode: "dark",
     useSystemColorMode: true,
   },
+  radii: {
+    base: "0.375rem",
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
