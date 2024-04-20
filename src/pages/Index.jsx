@@ -33,8 +33,8 @@ const Index = () => {
       return;
     }
 
-    const calorieIntake = 150;
-    if (dailyBalance - calorieIntake < 0) {
+    const calorieIntake = dailyBalance;
+    if (calorieIntake > dailyBalance) {
       toast({
         title: "Calorie Limit Exceeded",
         description: "You cannot consume more than your daily balance.",
