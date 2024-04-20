@@ -1,5 +1,5 @@
 // Caloria - A simple calorie tracking web application
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Switch, Text, VStack, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
 import { FaSave, FaHistory } from "react-icons/fa";
@@ -17,15 +17,42 @@ const Index = () => {
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
   const [dailyBalance, setDailyBalance] = useState(150);
-  const [accumulatedCalories, setAccumulatedCalories] = useState(() => {
+  const calculateBalance = () => {
     const today = new Date().toLocaleDateString();
-    return history.reduce((acc, entry) => {
-      if (entry.date === today) {
-        return acc + entry.calories;
+    const pastDaysLimit = 10;
+    const maxBalance = 1500;
+    let daysProcessed = 0;
+    let totalCalories = 0;
+
+    const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
+    sortedHistory.forEach((entry) => {
+      if (daysProcessed < pastDaysLimit && entry.date !== today) {
+        totalCalories += entry.calories;
+        daysProcessed++;
       }
-      return acc;
-    }, 150);
-  });
+    });
+
+    const unloggedDays = pastDaysLimit - daysProcessed;
+    const balance = Math.min(maxBalance, unloggedDays * 150 - totalCalories);
+    return balance;
+  };
+
+  const [accumulatedCalories, setAccumulatedCalories] = useState(calculateBalance);
+
+  useEffect(() => {
+    const timer = setTimeout(
+      () => {
+        const lastEntryDate = history.length > 0 ? new Date(history[history.length - 1].date) : new Date();
+        const today = new Date();
+        if (lastEntryDate.setHours(0, 0, 0, 0) !== today.setHours(0, 0, 0, 0)) {
+          setAccumulatedCalories((prev) => Math.min(1500, prev + 150));
+        }
+      },
+      new Date().setHours(23, 59, 0, 0) - Date.now(),
+    );
+
+    return () => clearTimeout(timer);
+  }, [history]);
   const toast = useToast();
   const navigate = useNavigate();
 
