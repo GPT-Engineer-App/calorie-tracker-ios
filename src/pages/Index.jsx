@@ -69,6 +69,8 @@ const Index = () => {
       status: "success",
       duration: 3000,
       isClosable: true,
+      position: "top-right",
+      variant: "solid",
     });
   };
 
