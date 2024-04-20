@@ -80,17 +80,20 @@ const Index = () => {
       <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="dark.800">
         <Heading size="lg">Caloria Tracker</Heading>
         <Text>{date}</Text>
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="calorie-status" mb="0">
-            Calories Used Today:
-          </FormLabel>
-          <Switch id="calorie-status" onChange={() => setCaloriesUsed(!caloriesUsed)} />
-        </FormControl>
+        <Button colorScheme="red" size="lg" onClick={() => setCaloriesUsed(true)}>
+          Create New Record
+        </Button>
         {caloriesUsed && (
-          <FormControl>
-            <FormLabel htmlFor="details">New Calorie Record:</FormLabel>
-            <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="What did you eat and how many calories was it?" />
-          </FormControl>
+          <VStack spacing={4} w="full">
+            <FormControl>
+              <FormLabel htmlFor="details">What did you eat?</FormLabel>
+              <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="Enter food details" />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="calories">Calories (max 150):</FormLabel>
+              <Input id="calories" type="number" value={dailyBalance} onChange={(e) => setDailyBalance(Math.min(150, parseInt(e.target.value, 10)))} placeholder="Enter calorie amount" />
+            </FormControl>
+          </VStack>
         )}
         {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
         <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
