@@ -84,12 +84,14 @@ const Index = () => {
   };
 
   return (
-    <Flex direction="column" align="center" justify="center" minH="100vh" bg="dark.900">
-      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="dark.800">
-        <Heading size="lg">Caloria Tracker</Heading>
-        <Text>{date}</Text>
-        <Button colorScheme="red" size="lg" onClick={() => setCaloriesUsed(true)}>
-          Create New Record
+    <Flex direction="column" align="center" justify="center" minH="100vh" bg="gray.100" style={{ background: "radial-gradient(circle, rgba(238,238,238,1) 0%, rgba(214,214,214,1) 100%)" }}>
+      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.6)" m={12} bg="gray.200" borderRadius="lg">
+        <Heading size="lg" style={{ textShadow: "1px 1px 2px gray, 0 0 25px pink, 0 0 5px darkgray" }}>
+          Caloria Tracker
+        </Heading>
+        <Text style={{ fontWeight: "bold" }}>{date}</Text>
+        <Button colorScheme="pink" size="lg" boxShadow="0 2px 4px rgba(0, 0, 0, 0.2), inset 0 -1px 2px rgba(255, 255, 255, 0.7)" onClick={() => setCaloriesUsed(true)}>
+          Log Today’s Calories
         </Button>
         {caloriesUsed && (
           <VStack spacing={4} w="full">
@@ -104,11 +106,12 @@ const Index = () => {
           </VStack>
         )}
         {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
-        <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
-          Save
+        <Button leftIcon={<FaSave />} colorScheme="blue" boxShadow="0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 1px rgba(255, 255, 255, 0.5)" onClick={handleSave}>
+          Save Progress
         </Button>
-        <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost" onClick={() => navigate("/history", { state: { history } })}>
-          View History
+        <Text fontSize="xl" fontWeight="bold" style={{ boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.1)" }}>{`Accumulated Calories: ${accumulatedCalories}`}</Text>
+        <Button leftIcon={<FaHistory />} colorScheme="blue" variant="ghost" style={{ textShadow: "0 1px 2px rgba(0, 0, 0, 0.1)" }} onClick={() => navigate("/history", { state: { history } })}>
+          Review Past Entries
         </Button>
       </VStack>
     </Flex>
