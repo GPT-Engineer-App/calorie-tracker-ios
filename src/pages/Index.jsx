@@ -45,7 +45,7 @@ const Index = () => {
       return;
     }
     const newAccumulatedCalories = accumulatedCalories + (dailyBalance - calorieIntake);
-    const newHistory = [...history, { date, details, calories: newAccumulatedCalories }];
+    const newHistory = [...history, { date, details, calories: calorieIntake }];
     if (newHistory.length > 10) newHistory.shift();
     setHistory(newHistory);
     localStorage.setItem("calorieHistory", JSON.stringify(newHistory));
