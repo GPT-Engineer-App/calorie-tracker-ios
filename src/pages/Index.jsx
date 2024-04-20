@@ -87,7 +87,7 @@ const Index = () => {
     <Flex direction="column" align="center" justify="center" minH="100vh" bg="dark.900">
       <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="dark.800" borderRadius="base">
         <Heading size="lg">Caloria Tracker</Heading>
-        <Text>{date}</Text>
+
         <Button colorScheme="red" size="lg" onClick={() => setCaloriesUsed(true)}>
           Create New Record
         </Button>
