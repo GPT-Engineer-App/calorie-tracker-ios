@@ -16,6 +16,7 @@ const Index = () => {
   });
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
+  const [dailyBalance, setDailyBalance] = useState(150);
   const [accumulatedCalories, setAccumulatedCalories] = useState(0);
   const toast = useToast();
   const navigate = useNavigate();
@@ -32,12 +33,35 @@ const Index = () => {
       return;
     }
 
-    const newAccumulatedCalories = accumulatedCalories + 150;
+    const calorieIntake = 150;
+    if (dailyBalance - calorieIntake < 0) {
+      toast({
+        title: "Calorie Limit Exceeded",
+        description: "You cannot consume more than your daily balance.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+    const newAccumulatedCalories = accumulatedCalories + (dailyBalance - calorieIntake);
     const newHistory = [...history, { date, details, calories: newAccumulatedCalories }];
     if (newHistory.length > 10) newHistory.shift();
     setHistory(newHistory);
     localStorage.setItem("calorieHistory", JSON.stringify(newHistory));
-    setAccumulatedCalories(newAccumulatedCalories > 1500 ? 1500 : newAccumulatedCalories);
+    const maxAccumulation = 1500;
+    if (newAccumulatedCalories >= maxAccumulation) {
+      toast({
+        title: "Accumulation Limit Reached",
+        description: "You have reached the maximum accumulation limit.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+      setAccumulatedCalories(maxAccumulation);
+    } else {
+      setAccumulatedCalories(newAccumulatedCalories);
+    }
 
     toast({
       title: "Entry Saved",
