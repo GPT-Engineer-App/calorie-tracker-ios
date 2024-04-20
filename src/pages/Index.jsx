@@ -21,7 +21,8 @@ const Index = () => {
     const lastEntry = history.length > 0 ? history[history.length - 1] : null;
     const lastDate = lastEntry ? lastEntry.date : "";
     const today = new Date().toLocaleDateString();
-    return lastDate === today ? parseInt(localStorage.getItem("accumulatedCalories"), 10) : 150;
+    const storedCalories = localStorage.getItem("accumulatedCalories");
+    return lastDate === today && storedCalories ? parseInt(storedCalories, 10) : 150;
   });
   const toast = useToast();
   const navigate = useNavigate();
