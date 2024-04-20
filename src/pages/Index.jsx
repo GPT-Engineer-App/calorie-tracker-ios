@@ -88,8 +88,8 @@ const Index = () => {
         </FormControl>
         {caloriesUsed && (
           <FormControl>
-            <FormLabel htmlFor="details">Details of Usage:</FormLabel>
-            <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="What were the calories spent on?" />
+            <FormLabel htmlFor="details">New Calorie Record:</FormLabel>
+            <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="What did you eat and how many calories was it?" />
           </FormControl>
         )}
         {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
