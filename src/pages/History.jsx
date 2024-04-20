@@ -69,7 +69,7 @@ const History = () => {
       )}
       <List spacing={3}>
         {history.map((entry, index) => (
-          <ListItem key={index} bg="dark.800" p={4} boxShadow="xl" display="flex" justifyContent="space-between">
+          <ListItem key={index} bg="dark.800" p={4} boxShadow="xl" display="flex" justifyContent="space-between" borderRadius="base">
             <Box>
               {entry.date}: {entry.details} - {entry.calories} calories
             </Box>

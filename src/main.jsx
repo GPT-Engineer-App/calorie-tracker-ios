@@ -30,7 +30,7 @@ const theme = extendTheme({
     useSystemColorMode: true,
   },
   radii: {
-    base: "0.375rem",
+    base: "0.5rem",
   },
 });
 
