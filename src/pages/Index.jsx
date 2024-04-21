@@ -40,10 +40,10 @@ const Index = () => {
   const [calorieCredit, setCalorieCredit] = useState(() => {
     const lastUpdate = localStorage.getItem("lastUpdate");
     const currentDate = new Date();
-    const lastCredit = parseInt(localStorage.getItem("calorieCredit"), 10) || 0;
+    const lastCredit = parseInt(localStorage.getItem("calorieCredit"), 10) || 1500;
     const daysDifference = lastUpdate ? Math.floor((currentDate - new Date(lastUpdate)) / (1000 * 3600 * 24)) : 0;
-    let newCredit = lastCredit + daysDifference * 150;
-    newCredit = Math.min(newCredit, 1500);
+    let newCredit = lastCredit - daysDifference * 150;
+    newCredit = Math.max(newCredit, 0);
     localStorage.setItem("calorieCredit", newCredit.toString());
     localStorage.setItem("lastUpdate", currentDate.toISOString());
     return newCredit;
