@@ -6,12 +6,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 const History = () => {
   const navigate = useNavigate();
   const [history, setHistory] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("calorieHistory")) || [];
-    } catch (error) {
-      console.error("Error reading from localStorage", error);
-      return [];
+    const storedHistory = localStorage.getItem("calorieHistory");
+    if (storedHistory) {
+      try {
+        return JSON.parse(storedHistory);
+      } catch (error) {
+        console.error("Error parsing history from localStorage", error);
+      }
     }
+    console.log("No history found in localStorage, initializing as empty array.");
+    return [];
   });
 
   const [isEditing, setIsEditing] = useState(false);
