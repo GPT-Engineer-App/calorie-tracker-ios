@@ -63,10 +63,10 @@ const History = () => {
       <Heading size="lg" color="white" mt={4}>
         Calorie History
       </Heading>
-      <Button colorScheme="red" mt="auto" onClick={() => setIsResetConfirmOpen(true)}>
-        Reset History
-      </Button>
       <Modal isOpen={isResetConfirmOpen} onClose={() => setIsResetConfirmOpen(false)}>
+        <Button colorScheme="red" mt="auto" onClick={() => setIsResetConfirmOpen(true)}>
+          Reset History
+        </Button>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Confirm Reset</ModalHeader>
