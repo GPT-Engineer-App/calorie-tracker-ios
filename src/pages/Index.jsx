@@ -82,17 +82,7 @@ const Index = () => {
     }
 
     const calorieIntake = dailyCalories;
-    if (calorieIntake > dailyCalories) {
-      toast({
-        title: "Calorie Limit Exceeded",
-        description: "You cannot consume more than your daily balance.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
-    const newAccumulatedCalories = caloriesUsed ? accumulatedCalories - dailyCalories : accumulatedCalories + dailyCalories;
+    const newAccumulatedCalories = caloriesUsed ? accumulatedCalories - calorieIntake : accumulatedCalories + 150;
     setAccumulatedCalories(newAccumulatedCalories > 1500 ? 1500 : newAccumulatedCalories);
     if (caloriesUsed) {
       setDailyCalories(0);
@@ -101,21 +91,6 @@ const Index = () => {
     if (newHistory.length > 10) newHistory.shift();
     setHistory(newHistory);
     localStorage.setItem("calorieHistory", JSON.stringify(newHistory));
-    const maxAccumulation = 1500;
-    if (newAccumulatedCalories >= maxAccumulation) {
-      toast({
-        title: "Accumulation Limit Reached",
-        description: "You have reached the maximum accumulation limit.",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-      });
-      setAccumulatedCalories(maxAccumulation);
-    } else {
-      setAccumulatedCalories(newAccumulatedCalories);
-    }
-    setCaloriesUsed(false);
-
     toast({
       title: "Entry Saved",
       description: "Your calorie data has been saved successfully.",
