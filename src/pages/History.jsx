@@ -1,4 +1,4 @@
-import { Box, Heading, List, ListItem, VStack, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Heading, List, ListItem, VStack, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -114,7 +114,7 @@ const History = () => {
             💪
           </span>
           <Text fontSize="lg" color="white">
-            No calories recorded yet. Start tracking!
+            No calorie records found. Start tracking your intake!
           </Text>
         </Box>
       ) : (
