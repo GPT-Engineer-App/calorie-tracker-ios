@@ -39,13 +39,10 @@ const Index = () => {
 
   const [calorieCredit, setCalorieCredit] = useState(() => {
     const lastUpdate = localStorage.getItem("lastUpdate");
-    const lastCredit = parseInt(localStorage.getItem("calorieCredit"), 10) || 0;
     const currentDate = new Date();
-    const daysDifference = Math.floor((currentDate - new Date(lastUpdate)) / (1000 * 3600 * 24));
-    let newCredit = lastCredit;
-    for (let i = 0; i < daysDifference; i++) {
-      newCredit += 150;
-    }
+    const lastCredit = parseInt(localStorage.getItem("calorieCredit"), 10) || 0;
+    const daysDifference = lastUpdate ? Math.floor((currentDate - new Date(lastUpdate)) / (1000 * 3600 * 24)) : 0;
+    let newCredit = lastCredit + daysDifference * 150;
     newCredit = Math.min(newCredit, 1500);
     localStorage.setItem("calorieCredit", newCredit.toString());
     localStorage.setItem("lastUpdate", currentDate.toISOString());
@@ -53,19 +50,25 @@ const Index = () => {
   });
 
   useEffect(() => {
-    const dailyIncrement = setInterval(() => {
+    const dailyUpdate = setInterval(() => {
       const today = new Date();
       if (today.getHours() === 0 && today.getMinutes() === 1) {
-        setCalorieCredit((prev) => {
-          const newCredit = prev + 150;
-          const daysInBlock = 10;
-          const maxCredit = daysInBlock * 150;
-          return Math.min(newCredit, maxCredit);
-        });
+        const lastUpdate = localStorage.getItem("lastUpdate");
+        const currentDate = new Date();
+        const daysDifference = Math.floor((currentDate - new Date(lastUpdate)) / (1000 * 3600 * 24));
+        if (daysDifference > 0) {
+          let newCredit = parseInt(localStorage.getItem("calorieCredit"), 10) || 0;
+          for (let i = 0; i < daysDifference; i++) {
+            newCredit += 150;
+          }
+          newCredit = Math.min(newCredit, 1500);
+          localStorage.setItem("calorieCredit", newCredit.toString());
+          localStorage.setItem("lastUpdate", currentDate.toISOString());
+          setCalorieCredit(newCredit);
+        }
       }
     }, 60000);
-
-    return () => clearInterval(dailyIncrement);
+    return () => clearInterval(dailyUpdate);
   }, [history]);
 
   useEffect(() => {
