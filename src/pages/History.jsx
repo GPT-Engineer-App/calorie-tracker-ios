@@ -5,8 +5,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const History = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const [history, setHistory] = useState(state?.history || []);
+  const [history, setHistory] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("calorieHistory")) || [];
+    } catch (error) {
+      console.error("Error reading from localStorage", error);
+      return [];
+    }
+  });
 
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(-1);
