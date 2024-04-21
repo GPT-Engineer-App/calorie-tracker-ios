@@ -94,11 +94,13 @@ const History = () => {
         </Modal>
       )}
       {history.length === 0 ? (
-        <Box textAlign="center" color="white">
-          <Text fontSize="6xl" role="img" aria-label="muscle">
+        <Box textAlign="center" fontSize="2xl" mt="8">
+          <span role="img" aria-label="muscle">
             💪
+          </span>
+          <Text fontSize="lg" color="white">
+            No calories, keep it up!
           </Text>
-          <Text fontSize="xl">no calories, keep it up!</Text>
         </Box>
       ) : (
         <List spacing={3}>
