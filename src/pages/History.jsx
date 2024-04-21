@@ -46,6 +46,9 @@ const History = () => {
       <Button variant="ghost" leftIcon={<FaArrowLeft />} onClick={() => navigate("/")} position="absolute" top="4" left="4">
         Back
       </Button>
+      <Heading size="lg" color="white" mt={4}>
+        Calorie History
+      </Heading>
       <Button colorScheme="red" mt="auto" onClick={() => setIsResetConfirmOpen(true)}>
         Reset History
       </Button>
