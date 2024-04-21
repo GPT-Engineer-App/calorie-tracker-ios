@@ -17,42 +17,43 @@ const Index = () => {
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
   const [dailyCalories, setDailyCalories] = useState(150);
-  const calculateBalance = () => {
-    const today = new Date().toLocaleDateString();
-    const pastDaysLimit = 10;
-    const maxBalance = 1500;
-    let daysProcessed = 0;
-    let totalCalories = 0;
-
-    const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
-    sortedHistory.forEach((entry) => {
-      if (daysProcessed < pastDaysLimit && entry.date !== today) {
-        totalCalories += entry.calories;
-        daysProcessed++;
+  useEffect(() => {
+    const resetCredit = setInterval(() => {
+      const today = new Date();
+      if (today.getHours() === 0 && today.getMinutes() === 1) {
+        const newHistory = history.filter(entry => {
+          const entryDate = new Date(entry.date);
+          const tenDaysAgo = new Date();
+          tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+          return entryDate >= tenDaysAgo;
+        });
+        const totalCalories = newHistory.reduce((acc, entry) => acc + entry.calories, 0);
+        const daysPast = new Date().getDate() % 10;
+        const newCredit = daysPast * 150 - totalCalories;
+        setCalorieCredit(newCredit);
       }
-    });
+    }, 60000);
 
-    const unloggedDays = pastDaysLimit - daysProcessed;
-    const balance = Math.min(maxBalance, unloggedDays * 150 - totalCalories);
-    return balance;
-  };
+    return () => clearInterval(resetCredit);
+  }, [history]);
 
-  const [calorieCredit, setCalorieCredit] = useState(calculateBalance);
+  const [calorieCredit, setCalorieCredit] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(
-      () => {
-        const lastEntryDate = history.length > 0 ? new Date(history[history.length - 1].date) : new Date();
+    const dailyIncrement = setInterval(() => {
         const today = new Date();
-        if (lastEntryDate.setHours(0, 0, 0, 0) !== today.setHours(0, 0, 0, 0)) {
-          setCalorieCredit((prev) => Math.min(1500, prev + 150));
+        if (today.getHours() === 0 && today.getMinutes() === 1) {
+          setCalorieCredit((prev) => {
+            const newCredit = prev + 150;
+            const daysInBlock = 10;
+            const maxCredit = daysInBlock * 150;
+            return Math.min(newCredit, maxCredit);
+          });
         }
-      },
-      new Date().setHours(23, 59, 0, 0) - Date.now(),
-    );
+      }, 60000);
 
-    return () => clearTimeout(timer);
-  }, [history]);
+      return () => clearInterval(dailyIncrement);
+    }, [history]);
 
   useEffect(() => {
     const midnightReset = setTimeout(
@@ -92,7 +93,7 @@ const Index = () => {
       });
       return;
     }
-    const newCalorieCredit = caloriesUsed ? calorieCredit - dailyCalories : calorieCredit + dailyCalories;
+    const newCalorieCredit = calorieCredit - dailyCalories;
     setCalorieCredit(newCalorieCredit > 1500 ? 1500 : newCalorieCredit);
     if (caloriesUsed) {
       setDailyCalories(0);
