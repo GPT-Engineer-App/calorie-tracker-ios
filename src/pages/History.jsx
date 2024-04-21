@@ -93,18 +93,27 @@ const History = () => {
           </ModalContent>
         </Modal>
       )}
-      <List spacing={3}>
-        {history.map((entry, index) => (
-          <ListItem key={index} bg="dark.800" p={4} boxShadow="xl" display="flex" justifyContent="space-between" borderRadius="base">
-            <Box>
-              {entry.date}: {entry.details} - {entry.calories} calories
-            </Box>
-            <Button size="sm" colorScheme="blue" onClick={() => editEntry(index)}>
-              Edit
-            </Button>
-          </ListItem>
-        ))}
-      </List>
+      {history.length === 0 ? (
+        <Box textAlign="center" color="white">
+          <Text fontSize="6xl" role="img" aria-label="muscle">
+            💪
+          </Text>
+          <Text fontSize="xl">no calories, keep it up!</Text>
+        </Box>
+      ) : (
+        <List spacing={3}>
+          {history.map((entry, index) => (
+            <ListItem key={index} bg="dark.800" p={4} boxShadow="xl" display="flex" justifyContent="space-between" borderRadius="base">
+              <Box>
+                {entry.date}: {entry.details} - {entry.calories} calories
+              </Box>
+              <Button size="sm" colorScheme="blue" onClick={() => editEntry(index)}>
+                Edit
+              </Button>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </VStack>
   );
 };
