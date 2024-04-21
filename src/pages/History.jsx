@@ -17,7 +17,7 @@ const History = () => {
         return [];
       }
     } else {
-      console.log("No history found in localStorage, initializing as empty array.");
+      console.log("No history found in localStorage, initializing as empty array. Debugging fetch.");
       return [];
     }
   });
@@ -114,7 +114,7 @@ const History = () => {
             💪
           </span>
           <Text fontSize="lg" color="white">
-            No calories, keep it up!
+            No calories recorded yet. Start tracking!
           </Text>
         </Box>
       ) : (
