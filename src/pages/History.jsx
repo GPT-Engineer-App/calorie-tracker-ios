@@ -89,7 +89,7 @@ const History = () => {
             <ModalBody>
               <FormControl>
                 <FormLabel>Date</FormLabel>
-                <Input value={editDetails.date} onChange={(e) => setEditDetails({ ...editDetails, date: e.target.value })} />
+                <Input type="date" value={editDetails.date} onChange={(e) => setEditDetails({ ...editDetails, date: e.target.value })} />
                 <FormLabel>Details</FormLabel>
                 <Input value={editDetails.details} onChange={(e) => setEditDetails({ ...editDetails, details: e.target.value })} />
                 <FormLabel>Calories</FormLabel>
