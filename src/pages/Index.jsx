@@ -37,7 +37,7 @@ const Index = () => {
     return balance;
   };
 
-  const [accumulatedCalories, setAccumulatedCalories] = useState(calculateBalance);
+  const [calorieCredit, setCalorieCredit] = useState(calculateBalance);
 
   useEffect(() => {
     const timer = setTimeout(
@@ -45,7 +45,7 @@ const Index = () => {
         const lastEntryDate = history.length > 0 ? new Date(history[history.length - 1].date) : new Date();
         const today = new Date();
         if (lastEntryDate.setHours(0, 0, 0, 0) !== today.setHours(0, 0, 0, 0)) {
-          setAccumulatedCalories((prev) => Math.min(1500, prev + 150));
+          setCalorieCredit((prev) => Math.min(1500, prev + 150));
         }
       },
       new Date().setHours(23, 59, 0, 0) - Date.now(),
@@ -58,7 +58,7 @@ const Index = () => {
     const midnightReset = setTimeout(
       () => {
         if (!history.find((entry) => new Date(entry.date).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0))) {
-          setAccumulatedCalories((prev) => Math.min(1500, prev + 150));
+          setCalorieCredit((prev) => Math.min(1500, prev + 150));
           setDailyCalories(150);
         }
       },
@@ -92,8 +92,8 @@ const Index = () => {
       });
       return;
     }
-    const newAccumulatedCalories = caloriesUsed ? accumulatedCalories - dailyCalories : accumulatedCalories + dailyCalories;
-    setAccumulatedCalories(newAccumulatedCalories > 1500 ? 1500 : newAccumulatedCalories);
+    const newCalorieCredit = caloriesUsed ? calorieCredit - dailyCalories : calorieCredit + dailyCalories;
+    setCalorieCredit(newCalorieCredit > 1500 ? 1500 : newCalorieCredit);
     if (caloriesUsed) {
       setDailyCalories(0);
     }
@@ -102,7 +102,7 @@ const Index = () => {
     setHistory(newHistory);
     localStorage.setItem("calorieHistory", JSON.stringify(newHistory));
     const maxAccumulation = 1500;
-    if (newAccumulatedCalories >= maxAccumulation) {
+    if (newCalorieCredit >= maxAccumulation) {
       toast({
         title: "Accumulation Limit Reached",
         description: "You have reached the maximum accumulation limit.",
@@ -110,9 +110,9 @@ const Index = () => {
         duration: 3000,
         isClosable: true,
       });
-      setAccumulatedCalories(maxAccumulation);
+      setCalorieCredit(maxAccumulation);
     } else {
-      setAccumulatedCalories(newAccumulatedCalories);
+      setCalorieCredit(newCalorieCredit);
     }
     setCaloriesUsed(false);
 
@@ -159,7 +159,7 @@ const Index = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
-        {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Accumulated Calories: ${accumulatedCalories}`}</Text>}
+        {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Calorie Credit: ${calorieCredit}`}</Text>}
         <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost" onClick={() => navigate("/history", { state: { history } })}>
           View History
         </Button>
