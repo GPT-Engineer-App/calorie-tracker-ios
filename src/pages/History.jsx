@@ -1,4 +1,5 @@
 import { Box, Heading, List, ListItem, VStack, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { FaArrowLeft } from "react-icons/fa";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -42,8 +43,8 @@ const History = () => {
 
   return (
     <VStack spacing={4} align="center" justify="center" h="100vh" bg="dark.900">
-      <Button colorScheme="red" onClick={() => navigate("/")}>
-        Back to Main
+      <Button variant="ghost" leftIcon={<FaArrowLeft />} onClick={() => navigate("/")} position="absolute" top="4" left="4">
+        Back
       </Button>
       <Button colorScheme="red" mt="auto" onClick={() => setIsResetConfirmOpen(true)}>
         Reset History
