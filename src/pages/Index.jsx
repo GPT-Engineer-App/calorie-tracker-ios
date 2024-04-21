@@ -16,7 +16,7 @@ const Index = () => {
   });
   const [caloriesUsed, setCaloriesUsed] = useState(false);
   const [details, setDetails] = useState("");
-  const [dailyBalance, setDailyBalance] = useState(150);
+  const [dailyCalories, setDailyCalories] = useState(150);
   const calculateBalance = () => {
     const today = new Date().toLocaleDateString();
     const pastDaysLimit = 10;
@@ -53,6 +53,19 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, [history]);
+
+  useEffect(() => {
+    const midnightReset = setTimeout(
+      () => {
+        if (!history.find((entry) => new Date(entry.date).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0))) {
+          setAccumulatedCalories((prev) => Math.min(1500, prev + 150));
+          setDailyCalories(150);
+        }
+      },
+      new Date().setHours(23, 59, 59, 999) - Date.now(),
+    );
+    return () => clearTimeout(midnightReset);
+  }, [history]);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -68,8 +81,8 @@ const Index = () => {
       return;
     }
 
-    const calorieIntake = dailyBalance;
-    if (calorieIntake > dailyBalance) {
+    const calorieIntake = dailyCalories;
+    if (calorieIntake > dailyCalories) {
       toast({
         title: "Calorie Limit Exceeded",
         description: "You cannot consume more than your daily balance.",
@@ -79,7 +92,11 @@ const Index = () => {
       });
       return;
     }
-    const newAccumulatedCalories = accumulatedCalories + calorieIntake;
+    const newAccumulatedCalories = caloriesUsed ? accumulatedCalories - dailyCalories : accumulatedCalories + dailyCalories;
+    setAccumulatedCalories(newAccumulatedCalories > 1500 ? 1500 : newAccumulatedCalories);
+    if (caloriesUsed) {
+      setDailyCalories(0);
+    }
     const newHistory = [...history, { date, details, calories: calorieIntake }];
     if (newHistory.length > 10) newHistory.shift();
     setHistory(newHistory);
@@ -131,7 +148,7 @@ const Index = () => {
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="calories">Calories (max 150):</FormLabel>
-                  <Input id="calories" type="number" value={dailyBalance} onChange={(e) => setDailyBalance(Math.min(150, parseInt(e.target.value, 10)))} placeholder="Enter calorie amount" />
+                  <Input id="calories" type="number" value={dailyCalories} onChange={(e) => setDailyCalories(Math.min(150, parseInt(e.target.value, 10)))} placeholder="Enter calorie amount" />
                 </FormControl>
               </VStack>
             </ModalBody>
