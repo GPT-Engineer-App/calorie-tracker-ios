@@ -32,11 +32,36 @@ const History = () => {
     setHistory(updatedHistory);
     setIsEditing(false);
   };
+  const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
+
+  const handleResetHistory = () => {
+    setHistory([]);
+    localStorage.setItem("calorieHistory", JSON.stringify([]));
+    setIsResetConfirmOpen(false);
+  };
+
   return (
     <VStack spacing={4} align="center" justify="center" h="100vh" bg="dark.900">
       <Button colorScheme="red" onClick={() => navigate("/")}>
         Back to Main
       </Button>
+      <Button colorScheme="red" onClick={() => setIsResetConfirmOpen(true)}>
+        Reset History
+      </Button>
+      <Modal isOpen={isResetConfirmOpen} onClose={() => setIsResetConfirmOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Confirm Reset</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Are you sure you want to reset the entire history? This action cannot be undone.</ModalBody>
+          <ModalFooter>
+            <Button colorScheme="red" mr={3} onClick={handleResetHistory}>
+              Confirm
+            </Button>
+            <Button onClick={() => setIsResetConfirmOpen(false)}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Heading size="lg" color="white" mt={4}>
         Calorie History
       </Heading>
