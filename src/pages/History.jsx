@@ -66,9 +66,6 @@ const History = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Heading size="lg" color="white" mt={4}>
-        Calorie History
-      </Heading>
       {isEditing && (
         <Modal isOpen={isEditing} onClose={() => setIsEditing(false)}>
           <ModalOverlay />
