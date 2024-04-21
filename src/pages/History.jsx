@@ -14,11 +14,12 @@ const History = () => {
         return parsedHistory;
       } catch (error) {
         console.error("Error parsing history from localStorage", error);
+        return [];
       }
     } else {
       console.log("No history found in localStorage, initializing as empty array.");
+      return [];
     }
-    return [];
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -106,6 +107,7 @@ const History = () => {
           </ModalContent>
         </Modal>
       )}
+      console.log("Rendering history:", history);
       {history.length === 0 ? (
         <Box textAlign="center" fontSize="2xl" mt="8">
           <span role="img" aria-label="muscle">
