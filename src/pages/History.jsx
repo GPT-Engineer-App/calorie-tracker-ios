@@ -45,7 +45,7 @@ const History = () => {
       <Button colorScheme="red" onClick={() => navigate("/")}>
         Back to Main
       </Button>
-      <Button colorScheme="red" onClick={() => setIsResetConfirmOpen(true)}>
+      <Button colorScheme="red" mt="auto" onClick={() => setIsResetConfirmOpen(true)}>
         Reset History
       </Button>
       <Modal isOpen={isResetConfirmOpen} onClose={() => setIsResetConfirmOpen(false)}>
