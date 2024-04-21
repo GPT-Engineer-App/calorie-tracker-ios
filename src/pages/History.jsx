@@ -9,12 +9,15 @@ const History = () => {
     const storedHistory = localStorage.getItem("calorieHistory");
     if (storedHistory) {
       try {
-        return JSON.parse(storedHistory);
+        const parsedHistory = JSON.parse(storedHistory);
+        console.log("Fetched history:", parsedHistory);
+        return parsedHistory;
       } catch (error) {
         console.error("Error parsing history from localStorage", error);
       }
+    } else {
+      console.log("No history found in localStorage, initializing as empty array.");
     }
-    console.log("No history found in localStorage, initializing as empty array.");
     return [];
   });
 
