@@ -41,7 +41,7 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: "Comic Sans MS, cursive, sans-serif",
+    heading: "sans-serif",
   },
 });
 
