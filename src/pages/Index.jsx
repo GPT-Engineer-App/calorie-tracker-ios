@@ -153,7 +153,7 @@ const Index = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh" bg="dark.900">
-      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="2xl" m={12} bg="dark.800" borderRadius="base">
+      <VStack spacing={10} w="full" maxW="md" p={12} boxShadow="0px 8px 26px rgba(0, 0, 0, 0.2)" m={12} bg="dark.800" borderRadius="lg">
         <Heading size="lg">Caloria Tracker</Heading>
 
         <Button colorScheme="red" size="lg" onClick={() => setCaloriesUsed(true)}>

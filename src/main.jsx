@@ -5,21 +5,21 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const colors = {
   brand: {
-    900: "#1a73e8",
-    800: "#34a853",
-    700: "#ea4335",
+    900: "#5C67F2",
+    800: "#6A82FB",
+    700: "#7F8FF4",
   },
   dark: {
-    50: "#f2f2f2",
-    100: "#e6e6e6",
-    200: "#cccccc",
-    300: "#b3b3b3",
-    400: "#999999",
-    500: "#808080",
-    600: "#666666",
-    700: "#4d4d4d",
-    800: "#333333",
-    900: "#1a1a1a",
+    50: "#f4f4f4",
+    100: "#e9e9e9",
+    200: "#d9d9d9",
+    300: "#c4c4c4",
+    400: "#a8a8a8",
+    500: "#8c8c8c",
+    600: "#707070",
+    700: "#545454",
+    800: "#383838",
+    900: "#1c1c1c",
   },
 };
 
@@ -30,13 +30,14 @@ const theme = extendTheme({
     useSystemColorMode: true,
   },
   radii: {
-    base: "0.5rem",
+    base: "1rem",
   },
   styles: {
     global: {
-      "button:hover": {
+      "button:hover, input:hover": {
         transform: "scale(1.05)",
-        transition: "transform 0.2s",
+        boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+        transition: "transform 0.2s, box-shadow 0.2s",
       },
     },
   },
