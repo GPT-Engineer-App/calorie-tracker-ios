@@ -159,30 +159,37 @@ const Index = () => {
         <Button colorScheme="red" size="lg" onClick={() => setCaloriesUsed(true)}>
           Create New Record
         </Button>
-        <Modal isOpen={caloriesUsed} onClose={() => setCaloriesUsed(false)}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Create New Record</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <VStack spacing={4} w="full">
-                <FormControl>
-                  <FormLabel htmlFor="details">What did you eat?</FormLabel>
-                  <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="Enter food details" />
-                </FormControl>
-                <FormControl>
-                  <FormLabel htmlFor="calories">Calories (max 150):</FormLabel>
-                  <Input id="calories" type="number" value={dailyCalories} onChange={(e) => setDailyCalories(Math.min(150, parseInt(e.target.value, 10)))} placeholder="Enter calorie amount" />
-                </FormControl>
-              </VStack>
-            </ModalBody>
-            <ModalFooter>
-              <Button leftIcon={<FaSave />} colorScheme="red" onClick={handleSave}>
-                Save
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSave();
+          }}
+        >
+          <Modal isOpen={caloriesUsed} onClose={() => setCaloriesUsed(false)}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Create New Record</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <VStack spacing={4} w="full">
+                  <FormControl>
+                    <FormLabel htmlFor="details">What did you eat?</FormLabel>
+                    <Input id="details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="Enter food details" />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel htmlFor="calories">Calories (max 150):</FormLabel>
+                    <Input id="calories" type="number" value={dailyCalories} onChange={(e) => setDailyCalories(Math.min(150, parseInt(e.target.value, 10)))} placeholder="Enter calorie amount" />
+                  </FormControl>
+                </VStack>
+              </ModalBody>
+              <ModalFooter>
+                <Button leftIcon={<FaSave />} colorScheme="red" type="submit">
+                  Save
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </form>
         {!caloriesUsed && <Text fontSize="xl" fontWeight="bold">{`Calorie Credit: ${calorieCredit}`}</Text>}
         <Button leftIcon={<FaHistory />} colorScheme="red" variant="ghost" onClick={() => navigate("/history", { state: { history } })}>
           View History
