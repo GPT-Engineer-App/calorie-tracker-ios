@@ -37,6 +37,9 @@ const History = () => {
     updatedHistory[editIndex] = editDetails;
     localStorage.setItem("calorieHistory", JSON.stringify(updatedHistory));
     setHistory(updatedHistory);
+    const totalCalories = updatedHistory.reduce((acc, entry) => acc + entry.calories, 0);
+    const newCalorieCredit = Math.max(1500 - totalCalories, 0);
+    localStorage.setItem("calorieCredit", newCalorieCredit.toString());
     setIsEditing(false);
   };
 
