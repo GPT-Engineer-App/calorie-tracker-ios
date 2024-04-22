@@ -5,9 +5,9 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const colors = {
   brand: {
-    900: "#e60000",
-    800: "#ff3333",
-    700: "#cc0000",
+    900: "#1a73e8",
+    800: "#34a853",
+    700: "#ea4335",
   },
   dark: {
     50: "#f2f2f2",
@@ -31,6 +31,17 @@ const theme = extendTheme({
   },
   radii: {
     base: "0.5rem",
+  },
+  styles: {
+    global: {
+      "button:hover": {
+        transform: "scale(1.05)",
+        transition: "transform 0.2s",
+      },
+    },
+  },
+  fonts: {
+    heading: "Comic Sans MS, cursive, sans-serif",
   },
 });
 
